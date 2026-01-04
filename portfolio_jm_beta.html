@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio de Juanma Falcón</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: #1e1e2f;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    @media (min-width: 600px) {
+      .header-content {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+      }
+    }
+    header img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid white;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    section {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    details {
+      margin-bottom: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 1rem;
+    }
+    summary {
+      font-weight: bold;
+      cursor: pointer;
+      outline: none;
+    }
+    .subsection {
+      margin-top: 1rem;
+    }
+    .subsection h4 {
+      margin-bottom: 0.5rem;
+      color: #1e1e2f;
+    }
+    footer {
+      background: #1e1e2f;
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+    }
+    .cv-link {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      background: #1e1e2f;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .cv-link:hover {
+      background: #2e2e4f;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div>
+        <h1>Juanma Falcón</h1>
+        <p>Científico y Analista de Datos</p>
+      </div>
+      <img src="foto_CV.jpeg" alt="Juanma Falcón" />
+    </div>
+  </header>
+
+  <section>
+    <details open>
+      <summary>Sobre mí</summary>
+      <p>Soy físico y científico de datos con experiencia demostrada en análisis y procesamiento de datos. Me especializo en Python, SQL y herramientas de visualización como Power BI. Apasionado por encontrar soluciones reales a través del análisis de datos y siempre abierto a aprender nuevas tecnologías.</p>
+    </details>
+
+    <details>
+      <summary>Currículum</summary>
+      <p>Puedes consultar o descargar mi currículum en formato PDF desde el siguiente enlace:</p>
+      <a class="cv-link" href="CV_JFR_SPA.pdf" target="_blank">Descargar CV</a>
+    </details>
+
+    <details>
+      <summary>Experiencia</summary>
+      <div class="subsection">
+        <h4>Investigador / Analista de Datos</h4>
+        <p>Universidad de Las Palmas de Gran Canaria (2024 - Presente). Desarrollo de grafos de conectividad marítima, optimización de código Python y automatización de procesos ETL.</p>
+      </div>
+      <div class="subsection">
+        <h4>Analista de Datos</h4>
+        <p>Universidad de Las Palmas de Gran Canaria (2024). Análisis de conectividad aérea, scraping de datos y cuadros de mando con Power BI.</p>
+      </div>
+      <div class="subsection">
+        <h4>Prácticas en Atlantis Technology (Binter)</h4>
+        <p>Procesamiento de datos y desarrollo de dashboards con MicroStrategy y QlikView.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Educación</summary>
+      <div class="subsection">
+        <h4>Máster en Inteligencia de Datos y Ciberseguridad</h4>
+        <p>Universidad de La Laguna (2023-2024). Análisis y limpieza de datos, aprendizaje automático, bases de datos, BI, ciberseguridad y hacking ético.</p>
+      </div>
+      <div class="subsection">
+        <h4>Grado en Física</h4>
+        <p>Universidad de La Laguna (2018-2023). Formación en física teórica y experimental, matemáticas, programación y análisis de datos.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Tecnologías</summary>
+      <div class="subsection">
+        <h4>Lenguajes y herramientas</h4>
+        <p>Python, SQL, Git, Pyspark, Scikit-Learn, sktime, PyTorch, Selenium, networkx, MongoDB, Power BI, QlikView.</p>
+      </div>
+      <div class="subsection">
+        <h4>Entornos y otras habilidades</h4>
+        <p>Linux, GitHub, PowerPoint, Word, Excel.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Publicaciones</summary>
+      <div class="subsection">
+        <h4>2025</h4>
+        <p>Coautor en P.M. Sánchez-Alarcón et al. (2025), “The Complete Spitzer Survey of Stellar Structure in Galaxies (CS4G)”, Astronomy and Astrophysics (A&A), Volume 697, id.A38, 18 pp.</p>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <div>
+      <h3>Contacto</h3>
+      <p>Correo: <a href="mailto:juanmafalram@gmail.com" style="color: white;">juanmafalram@gmail.com</a></p>
+      <p>Teléfono: +34 654 832 394</p>
+      <p>LinkedIn: <a href="https://linkedin.com/in/jm-falcon-ramirez" target="_blank" style="color: white;">@jm-falcon-ramirez</a></p>
+    </div>
+    <p style="margin-top: 2rem;">&copy; 2025 Juanma Falcón. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>
