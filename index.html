@@ -1,179 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meet me!</title>
+    <title>Juanma Falcón - Data Scientist</title>
 
     <style>
-        /* Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body, h1, h2, p, a {
-            font-family: 'Nunito', sans-serif;
-        }
-
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body, h1, h2, p, a { font-family:'Nunito', sans-serif; }
         body {
-            min-height: 100vh;
-            background: radial-gradient(ellipse at bottom, #0b0b17 0%, #12123b 100%);
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
+            min-height:100vh;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 50%, #0f1729 100%);
+            color:#fff;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:40px 20px;
+            position:relative;
+            overflow-x:hidden;
         }
 
-        /* Canvas */
         #background {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
+            position:fixed;
+            inset:0;
+            z-index:0;
         }
 
-        /* Glass card */
-        .container {
-            max-width: 720px;
-            padding: 40px 35px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-radius: 22px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-
-            transition: box-shadow 0.3s ease, border 0.3s ease;
+        .layout {
+            display:grid;
+            grid-template-columns: minmax(340px, 450px) minmax(500px, 700px);
+            gap: 40px;
+            z-index:1;
+            width:100%;
+            max-width:1300px;
+            margin: 0 auto;
         }
 
-        /* Hover glow */
-        .container:hover {
-            box-shadow:
-                0 0 0 1px rgba(124,162,198,0.4),
-                0 25px 60px rgba(124,162,198,0.35);
-            border: 1px solid rgba(124,162,198,0.6);
+        .main-card {
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            text-align:center;
+            background: rgba(255, 255, 255, 0.09);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.18);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            padding: 40px 30px;
+            transition: all 0.4s ease;
+            height: fit-content;
+            position: sticky;
+            top: 40px;
         }
 
-        /* Profile picture */
+        .main-card:hover {
+            box-shadow: 0 0 0 1px rgba(124,162,198,0.5),
+                        0 20px 50px rgba(124,162,198,0.25);
+            border: 1px solid rgba(124,162,198,0.5);
+            transform: translateY(-5px);
+        }
+
+        .profile-pic-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+        }
+
         .profile-pic {
-            width: 230px;
-            height: 230px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid rgba(255,255,255,0.6);
+            background: #2a2a4a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            color: rgba(255,255,255,0.3);
+        }
+
+        h1 { 
+            font-size: 2.5em; 
+            margin-bottom: 0.3em;
+            background: linear-gradient(135deg, #fff 0%, #b8c6db 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 { 
+            font-size: 1.1em; 
+            font-weight: 600; 
+            margin-bottom: 1.5em; 
+            line-height: 1.5; 
+            color: #acd7ff;
+        }
+
+        .main-card p { 
+            font-size: 1.05em; 
+            line-height: 1.7; 
+            margin-bottom: 2em;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .main-card p a {
+            color: #7ca2c6;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .main-card p a:hover {
+            color: #acd7ff;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
             margin-bottom: 20px;
         }
 
-        h1 {
-            font-size: 2.8em;
-            margin-bottom: 0.2em;
-        }
-
-        h2 {
-            font-size: 1.15em;
-            font-weight: 400;
-            margin-bottom: 1.5em;
-            line-height: 1.4;
-            opacity: 0.9;
-        }
-
-        p {
-            font-size: 1.05em;
-            line-height: 1.6;
-            margin-bottom: 2em;
-        }
-
-        /* Buttons */
         .buttons a {
             display: inline-block;
             text-decoration: none;
             color: #0b1a2b;
-            background: rgba(255,255,255,0.85);
-            padding: 12px 26px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(230,240,255,0.9) 100%);
+            padding: 13px 28px;
             border-radius: 30px;
-            margin: 6px;
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 0.95em;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .buttons a:hover {
-            background: #7ca2c6;
+        .buttons a:hover { 
+            background: linear-gradient(135deg, #7ca2c6 0%, #667eea 100%);
             color: #fff;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(124,162,198,0.4);
         }
 
-        .social-icons {
-            margin-top: 2em;
+        .social-icons { 
+            margin-top: 1.5em;
+            display: flex;
+            gap: 20px;
         }
 
         .social-icons a {
-            margin: 0 12px;
-            color: #fff;
+            color: #acd7ff;
             text-decoration: none;
-            opacity: 0.85;
-            transition: 0.3s;
+            font-weight: 600;
+            font-size: 1.05em;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(124,162,198,0.1);
         }
 
-        .social-icons a:hover {
-            color: #7ca2c6;
+        .social-icons a:hover { 
+            color: #fff;
             opacity: 1;
+            background: rgba(124,162,198,0.3);
+            transform: translateY(-2px);
         }
 
-        @media (max-width: 600px) {
-            .profile-pic {
-                width: 180px;
-                height: 180px;
-            }
+        .side-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
 
-            h1 {
-                font-size: 2.2em;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.09);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.18);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            padding: 35px 30px;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.25);
+            transform: translateX(5px);
+        }
+
+        .glass-card h3 { 
+            font-size: 1.5em; 
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #acd7ff 0%, #7ca2c6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tech-stack { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 12px;
+        }
+
+        .tech-stack span {
+            padding: 10px 18px;
+            font-size: 0.9em;
+            font-weight: 600;
+            border-radius: 25px;
+            background: rgba(124,162,198,0.2);
+            border: 1px solid rgba(124,162,198,0.4);
+            color: #e6f2ff;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .tech-stack span:hover {
+            background: rgba(124,162,198,0.35);
+            border-color: rgba(124,162,198,0.6);
+            transform: translateY(-2px);
+        }
+
+        .experience-item { 
+            margin-bottom: 22px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .experience-item strong { 
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .experience-item span { 
+            font-size: 0.9em;
+            color: rgba(255,255,255,0.7);
+        }
+
+        @media(max-width:1100px){
+            .layout { 
+                grid-template-columns: 1fr;
+                gap: 30px;
             }
+            .main-card {
+                position: relative;
+                top: 0;
+            }
+        }
+
+        @media(max-width:600px){
+            body { padding: 20px 15px; }
+            .profile-pic-container { width: 160px; height: 160px; }
+            h1 { font-size: 2em; }
+            h2 { font-size: 1em; }
+            .buttons { flex-direction: column; width: 100%; }
+            .buttons a { width: 100%; text-align: center; }
+            .social-icons { flex-direction: column; width: 100%; }
+            .social-icons a { text-align: center; }
         }
     </style>
 </head>
-
 <body>
 
 <canvas id="background"></canvas>
 
-<div class="container">
+<div class="layout">
 
-    <img src="foto_CV.jpeg" alt="Juanma Falcón" class="profile-pic">
+    <div class="main-card">
+        <div class="profile-pic-container">
+            <img src="foto_CV.jpeg" alt="Juanma Falcón" class="profile-pic">
+        </div>
 
-    <h1>Juanma Falcón</h1>
+        <h1>Juanma Falcón</h1>
+        <h2>Data Engineering, Analysis and Science<br>PhD Student at University of Las Palmas de Gran Canaria</h2>
 
-    <h2>
-        Data Engineering, Analysis and Science<br>
-        PhD Student at University of Las Palmas de Gran Canaria
-    </h2>
+        <p>
+            Hello! I'm Juanma, 25, from the Canary Islands.<br><br>
+            I work as a Data Scientist at
+            <a href="https://emotur.ulpgc.es/emoturlab/" target="_blank">Emotur Lab</a>,
+            and I am pursuing a PhD on Quantitative Methods and Complex Networks applied to Economics.
+        </p>
 
-    <p>
-        I'm Juanma, 25, from the Canary Islands.<br><br>
-        I work as a Data Scientist at
-        <a href="https://emotur.ulpgc.es/emoturlab/" target="_blank" style="color:#acd7ff;">
-            Emotur Lab</a>,
-        and I am pursuing a PhD on Quantitative Methods and
-        Complex Networks applied to Economics.
-    </p>
+        <div class="buttons">
+            <a href="mailto:juanmafalram@gmail.com">Contact Me</a>
+            <a href="CV_JFR_SPA.pdf">CV (Spanish)</a>
+            <a href="CV_JFR_ENG.pdf">CV (English)</a>
+        </div>
 
-    <div class="buttons">
-        <a href="mailto:juanmafalram@gmail.com">Contact Me</a>
-        <a href="CV_JFR_SPA.pdf">CV (Spanish)</a>
-        <a href="CV_JFR_ENG.pdf">CV (English)</a>
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/jm-falcon-ramirez" target="_blank">LinkedIn</a>
+            <a href="https://github.com/juanmafr10" target="_blank">GitHub</a>
+        </div>
     </div>
 
-    <div class="social-icons">
-        <a href="https://www.linkedin.com/in/jm-falcon-ramirez" target="_blank">LinkedIn</a>
-        <a href="https://github.com/juanmafr10" target="_blank">GitHub</a>
+    <div class="side-cards">
+        <div class="glass-card">
+            <h3>Technologies</h3>
+            <div class="tech-stack">
+                <span>Python</span><span>SQL</span><span>Snowflake</span>
+                <span>dbt</span><span>Airflow</span><span>Power BI</span>
+                <span>AWS</span><span>Azure</span><span>PySpark</span>
+                <span>Pandas</span><span>scikit-learn</span><span>PyTorch</span>
+                <span>networkx</span><span>Linux</span><span>Git</span>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h3>Experience</h3>
+
+            <div class="experience-item">
+                <strong>Data Engineer – Analyst</strong>
+                <span>EmoturLab · Oct 2025 – Present</span>
+            </div>
+
+            <div class="experience-item">
+                <strong>Data Engineer – Analyst</strong>
+                <span>University of Las Palmas de Gran Canaria · 2024–2025</span>
+            </div>
+
+            <div class="experience-item">
+                <strong>Data Analyst Intern</strong>
+                <span>Atlantis Technology (Binter) · 2024</span>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -181,148 +346,97 @@
 <script>
 const canvas = document.getElementById("background");
 const ctx = canvas.getContext("2d");
-
 let w = canvas.width = window.innerWidth;
 let h = canvas.height = window.innerHeight;
-
 const mouse = { x: null, y: null };
 
-/* Streams */
 const streams = [];
-const STREAM_COUNT = 70;
-
+const STREAM_COUNT = 50;
 class Stream {
     constructor() { this.reset(); }
-
     reset() {
         this.x = Math.random() * w;
         this.y = Math.random() * h;
-        this.length = Math.random() * 120 + 60;
-        this.speed = Math.random() * 1.2 + 0.4;
-        this.alpha = Math.random() * 0.4 + 0.15;
+        this.length = Math.random()*100+40;
+        this.speed = Math.random()*0.8+0.3;
+        this.alpha = Math.random()*0.3+0.1;
     }
-
-    update() {
-        this.y += this.speed;
-        if (this.y > h + this.length) {
-            this.reset();
-            this.y = -this.length;
-        }
-    }
-
+    update() { this.y += this.speed; if(this.y>h+this.length){this.reset(); this.y=-this.length;} }
     draw() {
-        const g = ctx.createLinearGradient(
-            this.x, this.y,
-            this.x, this.y + this.length
-        );
-        g.addColorStop(0, "rgba(124,162,198,0)");
-        g.addColorStop(1, `rgba(124,162,198,${this.alpha})`);
-
-        ctx.strokeStyle = g;
-        ctx.lineWidth = 1;
+        const g=ctx.createLinearGradient(this.x,this.y,this.x,this.y+this.length);
+        g.addColorStop(0,"rgba(102,126,234,0)");
+        g.addColorStop(1,`rgba(102,126,234,${this.alpha})`);
+        ctx.strokeStyle=g;
+        ctx.lineWidth=1.5;
         ctx.beginPath();
-        ctx.moveTo(this.x, this.y);
-        ctx.lineTo(this.x, this.y + this.length);
+        ctx.moveTo(this.x,this.y);
+        ctx.lineTo(this.x,this.y+this.length);
         ctx.stroke();
     }
 }
+for(let i=0;i<STREAM_COUNT;i++) streams.push(new Stream());
 
-for (let i = 0; i < STREAM_COUNT; i++) streams.push(new Stream());
-
-/* Nodes */
-const nodes = [];
-const NODE_COUNT = 40;
-const MAX_DIST = 130;
-const MOUSE_DIST = 150;
-
+const nodes=[];
+const NODE_COUNT=35;
+const MAX_DIST=150;
+const MOUSE_DIST=180;
 class Node {
-    constructor() {
-        this.x = Math.random() * w;
-        this.y = Math.random() * h;
-        this.vx = (Math.random() - 0.5) * 0.4;
-        this.vy = (Math.random() - 0.5) * 0.4;
+    constructor(){
+        this.x=Math.random()*w;
+        this.y=Math.random()*h;
+        this.vx=(Math.random()-0.5)*0.3;
+        this.vy=(Math.random()-0.5)*0.3;
     }
-
-    update() {
-        if (mouse.x && mouse.y) {
-            const dx = this.x - mouse.x;
-            const dy = this.y - mouse.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-
-            if (dist < MOUSE_DIST) {
-                this.x += dx / dist;
-                this.y += dy / dist;
-            }
+    update(){
+        if(mouse.x && mouse.y){
+            const dx=this.x-mouse.x;
+            const dy=this.y-mouse.y;
+            const dist=Math.sqrt(dx*dx+dy*dy);
+            if(dist<MOUSE_DIST){ this.x+=dx/dist*0.8; this.y+=dy/dist*0.8; }
         }
-
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x < 0 || this.x > w) this.vx *= -1;
-        if (this.y < 0 || this.y > h) this.vy *= -1;
+        this.x+=this.vx; this.y+=this.vy;
+        if(this.x<0||this.x>w)this.vx*=-1;
+        if(this.y<0||this.y>h)this.vy*=-1;
     }
-
-    draw() {
-        ctx.fillStyle = "rgba(124,162,198,0.6)";
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-        ctx.fill();
+    draw(){ 
+        ctx.fillStyle="rgba(124,162,198,0.7)"; 
+        ctx.beginPath(); 
+        ctx.arc(this.x,this.y,2.5,0,Math.PI*2); 
+        ctx.fill(); 
     }
 }
+for(let i=0;i<NODE_COUNT;i++) nodes.push(new Node());
 
-for (let i = 0; i < NODE_COUNT; i++) nodes.push(new Node());
-
-function connectNodes() {
-    for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-            const dx = nodes[i].x - nodes[j].x;
-            const dy = nodes[i].y - nodes[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-
-            if (dist < MAX_DIST) {
-                ctx.strokeStyle = `rgba(124,162,198,${1 - dist / MAX_DIST})`;
-                ctx.lineWidth = 0.6;
+function connectNodes(){
+    for(let i=0;i<nodes.length;i++){
+        for(let j=i+1;j<nodes.length;j++){
+            const dx=nodes[i].x-nodes[j].x;
+            const dy=nodes[i].y-nodes[j].y;
+            const dist=Math.sqrt(dx*dx+dy*dy);
+            if(dist<MAX_DIST){
+                const opacity = (1-dist/MAX_DIST)*0.4;
+                ctx.strokeStyle=`rgba(102,126,234,${opacity})`;
+                ctx.lineWidth=1;
                 ctx.beginPath();
-                ctx.moveTo(nodes[i].x, nodes[i].y);
-                ctx.lineTo(nodes[j].x, nodes[j].y);
+                ctx.moveTo(nodes[i].x,nodes[i].y);
+                ctx.lineTo(nodes[j].x,nodes[j].y);
                 ctx.stroke();
             }
         }
     }
 }
 
-function animate() {
-    ctx.clearRect(0, 0, w, h);
-
-    streams.forEach(s => {
-        s.update();
-        s.draw();
-    });
-
-    nodes.forEach(n => {
-        n.update();
-        n.draw();
-    });
-
+function animate(){
+    ctx.clearRect(0,0,w,h);
+    streams.forEach(s=>{s.update();s.draw();});
+    nodes.forEach(n=>{n.update();n.draw();});
     connectNodes();
     requestAnimationFrame(animate);
 }
 
-window.addEventListener("mousemove", e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-});
-
-window.addEventListener("mouseleave", () => {
-    mouse.x = null;
-    mouse.y = null;
-});
-
-window.addEventListener("resize", () => {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-});
-
+window.addEventListener("mousemove",e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+window.addEventListener("mouseleave",()=>{mouse.x=null;mouse.y=null;});
+window.addEventListener("resize",()=>{w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;});
 animate();
 </script>
 
