@@ -111,8 +111,9 @@
     </style>
 </head>
 <body>
-    <!-- Canvas for stars -->
-    <canvas id="starfield"></canvas>
+    <!-- Canvas for TECH -->
+    <canvas id="network"></canvas>
+
 
     <div class="container">
         <!-- Profile Picture -->
@@ -146,55 +147,78 @@
     </div>
 
     <script>
-        const canvas = document.getElementById('starfield');
-        const ctx = canvas.getContext('2d');
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
+    const canvas = document.getElementById('network');
+    const ctx = canvas.getContext('2d');
 
-        // Star class
-        class Star {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.radius = Math.random() * 1.5 + 0.5;
-                this.alpha = Math.random();
-                this.speed = Math.random() * 0.5 + 0.1;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
-                ctx.fill();
-            }
-            update() {
-                this.y -= this.speed;
-                if (this.y < 0) this.reset();
-                this.draw();
-            }
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+
+    const nodes = [];
+    const NUM_NODES = 80;
+    const MAX_DIST = 130;
+
+    class Node {
+        constructor() {
+            this.x = Math.random() * w;
+            this.y = Math.random() * h;
+            this.vx = (Math.random() - 0.5) * 0.6;
+            this.vy = (Math.random() - 0.5) * 0.6;
+            this.radius = 2;
         }
 
-        // Create stars
-        const stars = [];
-        for (let i = 0; i < 200; i++) stars.push(new Star());
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
 
-        // Animate stars
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            stars.forEach(star => star.update());
-            requestAnimationFrame(animate);
+            if (this.x < 0 || this.x > w) this.vx *= -1;
+            if (this.y < 0 || this.y > h) this.vy *= -1;
         }
 
-        // Resize canvas
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = "#7ca2c6";
+            ctx.fill();
+        }
+    }
+
+    for (let i = 0; i < NUM_NODES; i++) {
+        nodes.push(new Node());
+    }
+
+    function connect() {
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const dx = nodes[i].x - nodes[j].x;
+                const dy = nodes[i].y - nodes[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < MAX_DIST) {
+                    ctx.strokeStyle = `rgba(124,162,198,${1 - dist / MAX_DIST})`;
+                    ctx.lineWidth = 0.7;
+                    ctx.beginPath();
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, w, h);
+        nodes.forEach(n => {
+            n.update();
+            n.draw();
         });
+        connect();
+        requestAnimationFrame(animate);
+    }
 
-        animate();
+    window.addEventListener('resize', () => {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+    });
 
+    animate();
     </script>
-</body>
-</html>
