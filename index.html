@@ -5,220 +5,326 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meet me!</title>
+
     <style>
-        /* Reset and basic styling */
+        /* Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        body, h1, h2, h3, h4, h5, h6, p, a, button, figcaption {
-        font-family: 'Nunito', sans-serif;
+
+        body, h1, h2, p, a {
+            font-family: 'Nunito', sans-serif;
         }
 
         body {
-            overflow-y: auto;
             min-height: 100vh;
-            background: radial-gradient(ellipse at bottom, #0d0d1a 100%, #141450 100%);
+            background: radial-gradient(ellipse at bottom, #0b0b17 0%, #12123b 100%);
             color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
             padding: 20px;
             position: relative;
+            overflow: hidden;
         }
 
-        /* Canvas for stars */
-        #starfield {
+        /* Canvas */
+        #background {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             z-index: 0;
         }
 
+        /* Glass card */
         .container {
-            max-width: 700px;
-            z-index: 1;
+            max-width: 720px;
+            padding: 40px 35px;
+            text-align: center;
             position: relative;
+            z-index: 1;
+
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+
+            transition: box-shadow 0.3s ease, border 0.3s ease;
+        }
+
+        /* Hover glow */
+        .container:hover {
+            box-shadow:
+                0 0 0 1px rgba(124,162,198,0.4),
+                0 25px 60px rgba(124,162,198,0.35);
+            border: 1px solid rgba(124,162,198,0.6);
         }
 
         /* Profile picture */
         .profile-pic {
-            width: 250px;
-            height: 250px;
+            width: 230px;
+            height: 230px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid #fff;
+            border: 3px solid rgba(255,255,255,0.6);
             margin-bottom: 20px;
         }
 
         h1 {
-            font-size: 3em;
+            font-size: 2.8em;
             margin-bottom: 0.2em;
         }
 
         h2 {
-            font-size: 1.2em;
+            font-size: 1.15em;
             font-weight: 400;
-            margin-bottom: 1em;
-        }
-
-        h2 a {
-            color: #acd7ff;
-            font-weight: bold;
-            text-decoration: none;
+            margin-bottom: 1.5em;
+            line-height: 1.4;
+            opacity: 0.9;
         }
 
         p {
-            font-size: 1.1em;
+            font-size: 1.05em;
+            line-height: 1.6;
             margin-bottom: 2em;
-            line-height: 1.5;
         }
 
         /* Buttons */
         .buttons a {
             display: inline-block;
             text-decoration: none;
-            color:#7ca2c6;
-            background: #fff;
-            padding: 12px 25px;
-            border-radius: 25px;
-            margin: 5px;
-            transition: all 0.3s ease;
+            color: #0b1a2b;
+            background: rgba(255,255,255,0.85);
+            padding: 12px 26px;
+            border-radius: 30px;
+            margin: 6px;
             font-weight: bold;
+            transition: all 0.3s ease;
         }
 
         .buttons a:hover {
-            background: #acd7ff;
+            background: #7ca2c6;
             color: #fff;
+            transform: translateY(-2px);
         }
 
-        /* Social icons */
+        .social-icons {
+            margin-top: 2em;
+        }
+
         .social-icons a {
-            margin: 0 10px;
+            margin: 0 12px;
             color: #fff;
-            font-size: 1.5em;
-            transition: 0.3s;
             text-decoration: none;
+            opacity: 0.85;
+            transition: 0.3s;
         }
 
         .social-icons a:hover {
-            color: #ffdd59;
+            color: #7ca2c6;
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            .profile-pic {
+                width: 180px;
+                height: 180px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
         }
     </style>
 </head>
+
 <body>
-    <!-- Canvas for TECH -->
-    <canvas id="network"></canvas>
 
+<canvas id="background"></canvas>
 
-    <div class="container">
-        <!-- Profile Picture -->
-        <img src="foto_CV.jpeg" alt="Juanma's Photo" class="profile-pic">
+<div class="container">
 
-        <h1>Juanma Falcón</h1>
-        <h2>
-            Data Engineering, Analysis and Science | PhD Student at University of Las Palmas de Gran Canaria
-        </h2>
-        <p>
-            Hello! I'm Juanma, 25, from the Canary Islands. 
+    <img src="foto_CV.jpeg" alt="Juanma Falcón" class="profile-pic">
 
-            Right now I'm working as a Data Scientist at <a href="https://emotur.ulpgc.es/emoturlab/" target="_blank">Emotur Lab</a>, as a member of the Spain Living Lab project.
-            
-            I'm also currently working on my PhD on Cuantitative Methods and Complex Networks applied to Economics.
-        </p>
+    <h1>Juanma Falcón</h1>
 
-        <div class="buttons">
-            <a href="mailto:juanmafalram@gmail.com">Contact Me</a>
-            <a href="CV_JFR_SPA.pdf" target="_self">CV (Spanish)</a>
-            <a href="CV_JFR_ENG.pdf" target="_self">CV (English)</a>
-            <!-- <a href="thesis.html" target="_self">My thesis</a>
-            <a href="asteroideiak.html" target="_self">Asteroideiak</a> -->
-            
-        </div>
+    <h2>
+        Data Engineering, Analysis and Science<br>
+        PhD Student at University of Las Palmas de Gran Canaria
+    </h2>
 
-        <div class="social-icons" style="margin-top: 2em;">
-            <a href="https://www.linkedin.com/in/jm-falcon-ramirez" target="_blank">LinkedIn</a>
-        </div>
+    <p>
+        I'm Juanma, 25, from the Canary Islands.<br><br>
+        I work as a Data Scientist at
+        <a href="https://emotur.ulpgc.es/emoturlab/" target="_blank" style="color:#acd7ff;">
+            Emotur Lab</a>,
+        and I am pursuing a PhD on Quantitative Methods and
+        Complex Networks applied to Economics.
+    </p>
 
+    <div class="buttons">
+        <a href="mailto:juanmafalram@gmail.com">Contact Me</a>
+        <a href="CV_JFR_SPA.pdf">CV (Spanish)</a>
+        <a href="CV_JFR_ENG.pdf">CV (English)</a>
     </div>
 
-    <script>
-    const canvas = document.getElementById('network');
-    const ctx = canvas.getContext('2d');
+    <div class="social-icons">
+        <a href="https://www.linkedin.com/in/jm-falcon-ramirez" target="_blank">LinkedIn</a>
+        <a href="https://github.com/juanmafr10" target="_blank">GitHub</a>
+    </div>
 
-    let w = canvas.width = window.innerWidth;
-    let h = canvas.height = window.innerHeight;
+</div>
 
-    const nodes = [];
-    const NUM_NODES = 80;
-    const MAX_DIST = 130;
+<script>
+const canvas = document.getElementById("background");
+const ctx = canvas.getContext("2d");
 
-    class Node {
-        constructor() {
-            this.x = Math.random() * w;
-            this.y = Math.random() * h;
-            this.vx = (Math.random() - 0.5) * 0.6;
-            this.vy = (Math.random() - 0.5) * 0.6;
-            this.radius = 2;
-        }
+let w = canvas.width = window.innerWidth;
+let h = canvas.height = window.innerHeight;
 
-        update() {
-            this.x += this.vx;
-            this.y += this.vy;
+const mouse = { x: null, y: null };
 
-            if (this.x < 0 || this.x > w) this.vx *= -1;
-            if (this.y < 0 || this.y > h) this.vy *= -1;
-        }
+/* Streams */
+const streams = [];
+const STREAM_COUNT = 70;
 
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = "#7ca2c6";
-            ctx.fill();
+class Stream {
+    constructor() { this.reset(); }
+
+    reset() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.length = Math.random() * 120 + 60;
+        this.speed = Math.random() * 1.2 + 0.4;
+        this.alpha = Math.random() * 0.4 + 0.15;
+    }
+
+    update() {
+        this.y += this.speed;
+        if (this.y > h + this.length) {
+            this.reset();
+            this.y = -this.length;
         }
     }
 
-    for (let i = 0; i < NUM_NODES; i++) {
-        nodes.push(new Node());
+    draw() {
+        const g = ctx.createLinearGradient(
+            this.x, this.y,
+            this.x, this.y + this.length
+        );
+        g.addColorStop(0, "rgba(124,162,198,0)");
+        g.addColorStop(1, `rgba(124,162,198,${this.alpha})`);
+
+        ctx.strokeStyle = g;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(this.x, this.y + this.length);
+        ctx.stroke();
+    }
+}
+
+for (let i = 0; i < STREAM_COUNT; i++) streams.push(new Stream());
+
+/* Nodes */
+const nodes = [];
+const NODE_COUNT = 40;
+const MAX_DIST = 130;
+const MOUSE_DIST = 150;
+
+class Node {
+    constructor() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
     }
 
-    function connect() {
-        for (let i = 0; i < nodes.length; i++) {
-            for (let j = i + 1; j < nodes.length; j++) {
-                const dx = nodes[i].x - nodes[j].x;
-                const dy = nodes[i].y - nodes[j].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
+    update() {
+        if (mouse.x && mouse.y) {
+            const dx = this.x - mouse.x;
+            const dy = this.y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
 
-                if (dist < MAX_DIST) {
-                    ctx.strokeStyle = `rgba(124,162,198,${1 - dist / MAX_DIST})`;
-                    ctx.lineWidth = 0.7;
-                    ctx.beginPath();
-                    ctx.moveTo(nodes[i].x, nodes[i].y);
-                    ctx.lineTo(nodes[j].x, nodes[j].y);
-                    ctx.stroke();
-                }
+            if (dist < MOUSE_DIST) {
+                this.x += dx / dist;
+                this.y += dy / dist;
+            }
+        }
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > w) this.vx *= -1;
+        if (this.y < 0 || this.y > h) this.vy *= -1;
+    }
+
+    draw() {
+        ctx.fillStyle = "rgba(124,162,198,0.6)";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+for (let i = 0; i < NODE_COUNT; i++) nodes.push(new Node());
+
+function connectNodes() {
+    for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < MAX_DIST) {
+                ctx.strokeStyle = `rgba(124,162,198,${1 - dist / MAX_DIST})`;
+                ctx.lineWidth = 0.6;
+                ctx.beginPath();
+                ctx.moveTo(nodes[i].x, nodes[i].y);
+                ctx.lineTo(nodes[j].x, nodes[j].y);
+                ctx.stroke();
             }
         }
     }
+}
 
-    function animate() {
-        ctx.clearRect(0, 0, w, h);
-        nodes.forEach(n => {
-            n.update();
-            n.draw();
-        });
-        connect();
-        requestAnimationFrame(animate);
-    }
+function animate() {
+    ctx.clearRect(0, 0, w, h);
 
-    window.addEventListener('resize', () => {
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
+    streams.forEach(s => {
+        s.update();
+        s.draw();
     });
 
-    animate();
-    </script>
+    nodes.forEach(n => {
+        n.update();
+        n.draw();
+    });
+
+    connectNodes();
+    requestAnimationFrame(animate);
+}
+
+window.addEventListener("mousemove", e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+});
+
+window.addEventListener("mouseleave", () => {
+    mouse.x = null;
+    mouse.y = null;
+});
+
+window.addEventListener("resize", () => {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+});
+
+animate();
+</script>
+
+</body>
+</html>
