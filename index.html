@@ -27,6 +27,43 @@
             z-index:0;
         }
 
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 30px;
+            padding: 10px 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-switcher button {
+            color: #acd7ff;
+            background: transparent;
+            border: none;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1em;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .lang-switcher button:hover {
+            background: rgba(124,162,198,0.3);
+            color: #fff;
+        }
+
+        .lang-switcher button.active {
+            background: rgba(124,162,198,0.4);
+            color: #fff;
+        }
+
         .layout {
             display:grid;
             grid-template-columns: minmax(340px, 450px) minmax(500px, 700px);
@@ -35,6 +72,7 @@
             width:100%;
             max-width:1300px;
             margin: 0 auto;
+            justify-content: center;
         }
 
         .main-card {
@@ -53,13 +91,6 @@
             height: fit-content;
             position: sticky;
             top: 40px;
-        }
-
-        .main-card:hover {
-            box-shadow: 0 0 0 1px rgba(124,162,198,0.5),
-                        0 20px 50px rgba(124,162,198,0.25);
-            border: 1px solid rgba(124,162,198,0.5);
-            transform: translateY(-5px);
         }
 
         .profile-pic-container {
@@ -118,6 +149,10 @@
 
         .main-card p a:hover {
             color: #acd7ff;
+        }
+
+        .main-card:hover {
+            transform: translateY(4px);
         }
 
         .buttons {
@@ -229,26 +264,26 @@
             transform: translateY(-2px);
         }
 
-        .experience-item { 
+        .experience-item, .education-item { 
             margin-bottom: 22px;
             padding-bottom: 22px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .experience-item:last-child {
+        .experience-item:last-child, .education-item:last-child {
             border-bottom: none;
             margin-bottom: 0;
             padding-bottom: 0;
         }
 
-        .experience-item strong { 
+        .experience-item strong, .education-item strong { 
             display: block;
             font-size: 1.1em;
             margin-bottom: 6px;
             color: #fff;
         }
 
-        .experience-item span { 
+        .experience-item span, .education-item span { 
             font-size: 0.9em;
             color: rgba(255,255,255,0.7);
         }
@@ -273,6 +308,11 @@
             .buttons a { width: 100%; text-align: center; }
             .social-icons { flex-direction: column; width: 100%; }
             .social-icons a { text-align: center; }
+            .lang-switcher {
+                top: 10px;
+                right: 10px;
+                padding: 8px 15px;
+            }
         }
     </style>
 </head>
@@ -280,27 +320,32 @@
 
 <canvas id="background"></canvas>
 
+<div class="lang-switcher">
+    <button onclick="changeLanguage('en')" id="btn-en" class="active">EN</button>
+    <button onclick="changeLanguage('es')" id="btn-es">ES</button>
+</div>
+
 <div class="layout">
 
     <div class="main-card">
         <div class="profile-pic-container">
-            <img src="foto_CV.jpeg" alt="Juanma Falcón" class="profile-pic">
+            <img src="C:\Users\juanm\Desktop\Proyectos\Mis_Proyectos\portfolio\foto_CV.jpeg" alt="Juanma Falcón" class="profile-pic">
         </div>
 
         <h1>Juanma Falcón</h1>
-        <h2>Data Engineering, Analysis and Science<br>PhD Student at University of Las Palmas de Gran Canaria</h2>
+        <h2 id="subtitle">Data Engineering, Analysis and Science<br>PhD Student at University of Las Palmas de Gran Canaria</h2>
 
-        <p>
+        <p id="bio">
             Hello! I'm Juanma, 25, from the Canary Islands.<br><br>
-            I work as a Data Scientist at
+            I work as a Data Engineer and Analyst at
             <a href="https://emotur.ulpgc.es/emoturlab/" target="_blank">Emotur Lab</a>,
             and I am pursuing a PhD on Quantitative Methods and Complex Networks applied to Economics.
         </p>
 
         <div class="buttons">
-            <a href="mailto:juanmafalram@gmail.com">Contact Me</a>
-            <a href="CV_JFR_SPA.pdf">CV (Spanish)</a>
-            <a href="CV_JFR_ENG.pdf">CV (English)</a>
+            <a href="mailto:juanmafalram@gmail.com" id="btn-contact">Contact Me</a>
+            <a href="CV_JFR_SPA.pdf" id="btn-cv-spa">CV (Spanish)</a>
+            <a href="CV_JFR_ENG.pdf" id="btn-cv-eng">CV (English)</a>
         </div>
 
         <div class="social-icons">
@@ -311,32 +356,52 @@
 
     <div class="side-cards">
         <div class="glass-card">
-            <h3>Technologies</h3>
+            <h3 id="tech-title">Technologies</h3>
             <div class="tech-stack">
                 <span>Python</span><span>SQL</span><span>Snowflake</span>
                 <span>dbt</span><span>Airflow</span><span>Power BI</span>
-                <span>AWS</span><span>Azure</span><span>PySpark</span>
-                <span>Pandas</span><span>scikit-learn</span><span>PyTorch</span>
-                <span>networkx</span><span>Linux</span><span>Git</span>
+                <span>AWS</span><span>Azure</span><span>Pandas</span>
+                <span>scikit-learn</span><span>TensorFlow</span><span>PyTorch</span>
+                <span>PySpark</span><span>networkx</span><span>Linux</span>
+                <span>Git</span><span>Excel</span>
             </div>
         </div>
 
         <div class="glass-card">
-            <h3>Experience</h3>
+            <h3 id="exp-title">Experience</h3>
 
             <div class="experience-item">
-                <strong>Data Engineer – Analyst</strong>
-                <span>EmoturLab · Oct 2025 – Present</span>
+                <strong id="exp1-title">Data Engineer – Analyst</strong>
+                <span id="exp1-period">EmoturLab · Oct 2025 – Present</span>
             </div>
 
             <div class="experience-item">
-                <strong>Data Engineer – Analyst</strong>
-                <span>University of Las Palmas de Gran Canaria · 2024–2025</span>
+                <strong id="exp2-title">Data Engineer – Analyst</strong>
+                <span id="exp2-period">University of Las Palmas de Gran Canaria · 2024–2025</span>
             </div>
 
             <div class="experience-item">
-                <strong>Data Analyst Intern</strong>
-                <span>Atlantis Technology (Binter) · 2024</span>
+                <strong id="exp3-title">Data Analyst Intern</strong>
+                <span id="exp3-period">Atlantis Technology (Binter) · 2024</span>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h3 id="edu-title">Education</h3>
+
+            <div class="education-item">
+                <strong id="edu1-title">PhD in Quantitative Methods and Complex Networks</strong>
+                <span id="edu1-period">University of Las Palmas de Gran Canaria · 2024 – Present</span>
+            </div>
+
+            <div class="education-item">
+                <strong id="edu2-title">Master's Degree in Data Science and Cybersecurity</strong>
+                <span id="edu2-period">University of Las Palmas de Gran Canaria · 2022–2024</span>
+            </div>
+
+            <div class="education-item">
+                <strong id="edu3-title">Bachelor's Degree in Physics</strong>
+                <span id="edu3-period">University of Las Palmas de Gran Canaria · 2017–2022</span>
             </div>
         </div>
     </div>
@@ -344,6 +409,103 @@
 </div>
 
 <script>
+// Traducciones
+const translations = {
+    en: {
+        subtitle: "Data Engineering, Analysis and Science<br>PhD Student at University of Las Palmas de Gran Canaria",
+        bio: `Hello! I'm Juanma, 25, from the Canary Islands.<br><br>
+            I work as a Data Engineer and Analyst at
+            <a href="https://emotur.ulpgc.es/emoturlab/" target="_blank">Emotur Lab</a>,
+            and I am pursuing a PhD on Quantitative Methods and Complex Networks applied to Economics.`,
+        btnContact: "Contact Me",
+        btnCvSpa: "CV (Spanish)",
+        btnCvEng: "CV (English)",
+        techTitle: "Technologies",
+        expTitle: "Experience",
+        exp1Title: "Data Engineer – Analyst",
+        exp1Period: "EmoturLab · Oct 2025 – Present",
+        exp2Title: "Data Engineer – Analyst",
+        exp2Period: "University of Las Palmas de Gran Canaria · 2024–2025",
+        exp3Title: "Data Analyst Intern",
+        exp3Period: "Atlantis Technology (Binter) · 2024",
+        eduTitle: "Education",
+        edu1Title: "PhD Candidate in Quantitative Methods and Complex Networks",
+        edu1Period: "University of Las Palmas de Gran Canaria · 2025 – Present",
+        edu2Title: "Master's Degree in Data Science and Cybersecurity",
+        edu2Period: "University of La Laguna · 2023–2024",
+        edu3Title: "Bachelor's Degree in Physics",
+        edu3Period: "University of La Laguna · 2018–2023"
+    },
+    es: {
+        subtitle: "Ingeniería, Análisis y Ciencia de Datos<br>Estudiante de Doctorado en la Universidad de Las Palmas de Gran Canaria",
+        bio: `¡Hola! Soy Juanma, 25 años, de las Islas Canarias.<br><br>
+            Trabajo como Data Engineer y Analyst para
+            <a href="https://emotur.ulpgc.es/emoturlab/" target="_blank">Emotur Lab</a>,
+            y estoy cursando un Doctorado en Métodos Cuantitativos y Redes Complejas aplicados a Economía.`,
+        btnContact: "Contáctame",
+        btnCvSpa: "CV (Español)",
+        btnCvEng: "CV (Inglés)",
+        techTitle: "Tecnologías",
+        expTitle: "Experiencia",
+        exp1Title: "Ingeniero de Datos – Analista",
+        exp1Period: "EmoturLab · Oct 2025 – Presente",
+        exp2Title: "Ingeniero de Datos – Analista",
+        exp2Period: "Universidad de Las Palmas de Gran Canaria · 2024–2025",
+        exp3Title: "Analista de Datos en Prácticas",
+        exp3Period: "Atlantis Technology (Binter) · 2024",
+        eduTitle: "Educación",
+        edu1Title: "Doctorando en Métodos Cuantitativos y Redes Complejas",
+        edu1Period: "Universidad de Las Palmas de Gran Canaria · 2025 – Presente",
+        edu2Title: "Máster en Ciencia de Datos y Ciberseguridad",
+        edu2Period: "Universidad de La Laguna · 2023–2024",
+        edu3Title: "Grado en Física",
+        edu3Period: "Universidad de La Laguna · 2018–2023"
+    }
+};
+
+// Función para cambiar idioma
+function changeLanguage(lang) {
+    const t = translations[lang];
+    
+    document.getElementById('subtitle').innerHTML = t.subtitle;
+    document.getElementById('bio').innerHTML = t.bio;
+    document.getElementById('btn-contact').textContent = t.btnContact;
+    document.getElementById('btn-cv-spa').textContent = t.btnCvSpa;
+    document.getElementById('btn-cv-eng').textContent = t.btnCvEng;
+    document.getElementById('tech-title').textContent = t.techTitle;
+    document.getElementById('exp-title').textContent = t.expTitle;
+    document.getElementById('exp1-title').textContent = t.exp1Title;
+    document.getElementById('exp1-period').textContent = t.exp1Period;
+    document.getElementById('exp2-title').textContent = t.exp2Title;
+    document.getElementById('exp2-period').textContent = t.exp2Period;
+    document.getElementById('exp3-title').textContent = t.exp3Title;
+    document.getElementById('exp3-period').textContent = t.exp3Period;
+    document.getElementById('edu-title').textContent = t.eduTitle;
+    document.getElementById('edu1-title').textContent = t.edu1Title;
+    document.getElementById('edu1-period').textContent = t.edu1Period;
+    document.getElementById('edu2-title').textContent = t.edu2Title;
+    document.getElementById('edu2-period').textContent = t.edu2Period;
+    document.getElementById('edu3-title').textContent = t.edu3Title;
+    document.getElementById('edu3-period').textContent = t.edu3Period;
+    
+    // Actualizar botones activos
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+    
+    // Guardar preferencia
+    localStorage.setItem('preferredLanguage', lang);
+    
+    // Actualizar atributo lang del HTML
+    document.documentElement.lang = lang;
+}
+
+// Cargar idioma guardado al inicio
+window.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+    changeLanguage(savedLang);
+});
+
+// Animación de fondo (canvas)
 const canvas = document.getElementById("background");
 const ctx = canvas.getContext("2d");
 let w = canvas.width = window.innerWidth;
